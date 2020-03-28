@@ -1,3 +1,4 @@
+import algorithm.FlowProcessor;
 import algorithm.MaximumFlowProcessor;
 
 public class HelloWorld {
@@ -15,9 +16,9 @@ public class HelloWorld {
                 {0, 0, 0, 7, 0, 4},
                 {0, 0, 0, 0, 0, 0}
         };
-        MaximumFlowProcessor maximumFlowProcessor = new MaximumFlowProcessor(vertices);
+        FlowProcessor flowProcessor = new MaximumFlowProcessor(vertices);
 
         System.out.println("The maximum possible flow is " +
-                maximumFlowProcessor.getMaxFlow(graph, 0, 5));
+                flowProcessor.getMaxFlow(graph, 0, 5));
     }
 }
