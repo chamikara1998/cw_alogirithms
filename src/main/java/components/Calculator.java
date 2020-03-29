@@ -2,6 +2,7 @@ package components;
 
 import algorithm.MaximumFlowProcessor;
 import constants.ConsoleColors;
+import javafx.application.Application;
 import sun.plugin2.util.SystemUtil;
 import util.Os;
 import util.OsDetector;
@@ -10,9 +11,10 @@ import java.util.Scanner;
 
 public class Calculator implements Component {
 
+    int[][] dataStructure;
 
-    private void calculate(int vertices,int[][] dataStructure) {
-        MaximumFlowProcessor maximumFlowProcessor = new MaximumFlowProcessor(vertices);
+    private void calculate() {
+        MaximumFlowProcessor maximumFlowProcessor = new MaximumFlowProcessor(dataStructure[0].length);
 
         System.out.println("The maximum possible flow is " +
                 maximumFlowProcessor.getMaxFlow(dataStructure, 0, 5));
@@ -21,21 +23,62 @@ public class Calculator implements Component {
     @Override
     public void render() {
         int vertices = getVertices();
-        int[][] dataStructure = getDataStructure(vertices);
-        calculate(vertices,dataStructure);
+        dataStructure = getDataStructure(vertices);
+        calculate();
+        renderChoice();
+    }
+
+    private void renderChoice() {
+        System.out.println("Do you want to Edit Data Structure ? (Yes/No)");
+        Scanner scanner = new Scanner(System.in);
+        String choice = scanner.nextLine();
+        if (choice.toLowerCase().equals("yes")) {
+            renderEditWindow();
+        } else if (choice.toLowerCase().equals("no")) {
+            System.exit(1);
+        }
+        renderChoice();
+    }
+
+    private void renderEditWindow() {
+        Scanner scanner = new Scanner(System.in);
+        if (OsDetector.detect() == Os.linux) {
+            System.out.println("Enter from node which do you want to edit.");
+        } else {
+            System.out.println("Enter from node which do you want to edit.");
+        }
+        int fromNode = scanner.nextInt();
+        if (OsDetector.detect() == Os.linux) {
+            System.out.println("Enter to node which do you want to edit.");
+        } else {
+            System.out.println("Enter to node which do you want to edit.");
+        }
+        int toNode = scanner.nextInt();
+        if (OsDetector.detect() == Os.linux) {
+            System.out.println("Enter to edge value.");
+        } else {
+            System.out.println("Enter to edge value.");
+        }
+        int edgeValue = scanner.nextInt();
+        changeDataStructure(fromNode,toNode,edgeValue);
+        calculate();
+    }
+
+    private void changeDataStructure(int fromNode,int toNode,int edge){
+        dataStructure[fromNode][toNode] = edge;
     }
 
     private int[][] getDataStructure(int vertices) {
         System.out.println();
         System.out.println("Enter Data Structure");
-        System.out.println("Put spaces between two data points");
+        System.out.println("Put commas between two data points");
         Scanner scanner = new Scanner(System.in);
         int[][] dataStructure = new int[vertices][vertices];
         for (int i = 0; i < vertices; i++) {
             String inputData = scanner.nextLine();
-            String[] dataRowStrings = inputData.split(" ");
+            String[] dataRowStrings = inputData.split(",");
             for (int r = 0; r < vertices; r++) {
-                dataStructure[i][r] = Integer.parseInt(dataRowStrings[r]);
+                dataStructure[i][r] = Integer.parseInt(dataRowStrings[r].trim());
             }
         }
         return dataStructure;
