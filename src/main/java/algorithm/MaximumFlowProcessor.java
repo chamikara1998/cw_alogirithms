@@ -1,8 +1,12 @@
 package algorithm;
 
+import constants.ConsoleColors;
+import util.Os;
+import util.OsDetector;
+
 import java.util.LinkedList;
 
-public class MaximumFlowProcessor implements FlowProcessor{
+public class MaximumFlowProcessor implements FlowProcessor {
 
     private int vertices = 6;
 
@@ -31,11 +35,11 @@ public class MaximumFlowProcessor implements FlowProcessor{
         int x, y;
         int[] parent = new int[vertices];
         int rGraph[][] = new int[vertices][vertices];
+        int finalGraph[][] = new int[vertices][vertices];
 
         for (x = 0; x < vertices; x++)
             for (y = 0; y < vertices; y++)
                 rGraph[x][y] = graph[x][y];
-
         int max_flow = 0;
         while (doBreathFirstSearch(rGraph, s, t, parent)) {
             int path_flow = Integer.MAX_VALUE;
@@ -48,9 +52,28 @@ public class MaximumFlowProcessor implements FlowProcessor{
                 x = parent[y];
                 rGraph[x][y] -= path_flow;
                 rGraph[y][x] += path_flow;
+                finalGraph[x][y] += path_flow;
             }
-            System.out.println("Path Flow -> " + path_flow);
+
             max_flow += path_flow;
+        }
+
+        System.out.println("");
+        System.out.println("Maximum flow path");
+        System.out.println("==================");
+        if (OsDetector.detect() == Os.linux) {
+            System.out.println(ConsoleColors.BLUE_BRIGHT);
+        }
+        for (int i = 0; i < vertices; i++) {
+            for (int j = 0; j < vertices; j++) {
+                int value = finalGraph[i][j];
+                if (value != 0) {
+                    System.out.println(i + " -> " + j + " = " + value);
+                }
+            }
+        }
+        if (OsDetector.detect() == Os.linux) {
+            System.out.println(ConsoleColors.RESET);
         }
         return max_flow;
     }

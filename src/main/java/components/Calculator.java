@@ -16,9 +16,16 @@ public class Calculator implements Component {
 
     private void calculate() {
         MaximumFlowProcessor maximumFlowProcessor = new MaximumFlowProcessor();
-
-        System.out.println("The maximum possible flow is " +
-                maximumFlowProcessor.getMaxFlow(dataStructure, 0, 5));
+        int maxFlow =  maximumFlowProcessor.getMaxFlow(dataStructure, 0, 5);
+        System.out.print("The maximum possible flow is ");
+        if (OsDetector.detect() == Os.linux) {
+            System.out.print(ConsoleColors.RED);
+        }
+        System.out.print(maxFlow);
+        if (OsDetector.detect() == Os.linux) {
+            System.out.print(ConsoleColors.RESET);
+        }
+        System.out.println("");
     }
 
     @Override
@@ -26,12 +33,12 @@ public class Calculator implements Component {
         int vertices = 0;
         try {
             vertices = getVertices();
-        }catch (InputMismatchException e){
-            if(OsDetector.detect() == Os.linux) {
+        } catch (InputMismatchException e) {
+            if (OsDetector.detect() == Os.linux) {
                 System.out.print(ConsoleColors.RED);
                 System.out.println("Invalid Node Input.");
                 System.out.print(ConsoleColors.RESET);
-            }else {
+            } else {
                 System.out.println("Invalid Node Input.");
             }
             System.exit(1);
@@ -89,28 +96,29 @@ public class Calculator implements Component {
         int[][] dataStructure = new int[vertices][vertices];
         for (int i = 0; i < vertices; i++) {
             try {
+                System.out.print(i + " node ->  ");
                 String inputData = scanner.nextLine();
                 String[] dataRowStrings = inputData.split(",");
-                if(dataRowStrings.length > vertices) throw new ArrayIndexOutOfBoundsException("Invalid Input");
+                if (dataRowStrings.length > vertices) throw new ArrayIndexOutOfBoundsException("Invalid Input");
                 for (int r = 0; r < vertices; r++) {
                     dataStructure[i][r] = Integer.parseInt(dataRowStrings[r].trim());
                 }
-            }catch (NumberFormatException e){
-                if(OsDetector.detect() == Os.linux){
+            } catch (NumberFormatException e) {
+                if (OsDetector.detect() == Os.linux) {
                     System.out.println(ConsoleColors.RED);
                 }
                 System.out.println("Invalid Input : " + e.getMessage() + ". Please enter valid data structure row.");
-                i =- 1;
-                if(OsDetector.detect() == Os.linux){
+                i = i - 1;
+                if (OsDetector.detect() == Os.linux) {
                     System.out.println(ConsoleColors.RESET);
                 }
-            } catch (ArrayIndexOutOfBoundsException e){
-                if(OsDetector.detect() == Os.linux){
+            } catch (ArrayIndexOutOfBoundsException e) {
+                if (OsDetector.detect() == Os.linux) {
                     System.out.println(ConsoleColors.RED);
                 }
                 System.out.println("Invalid Input : expected " + vertices + " data columns");
-                i =- 1;
-                if(OsDetector.detect() == Os.linux){
+                i = i - 1;
+                if (OsDetector.detect() == Os.linux) {
                     System.out.println(ConsoleColors.RESET);
                 }
             }
@@ -120,17 +128,17 @@ public class Calculator implements Component {
     }
 
     private int getVertices() {
-            int vertices;
-            Scanner input = new Scanner(System.in);
-            System.out.print("Input number of nodes -> ");
-            if (OsDetector.detect() == Os.linux) {
-                System.out.print(ConsoleColors.GREEN);
-            }
-            vertices = input.nextInt();
+        int vertices;
+        Scanner input = new Scanner(System.in);
+        System.out.print("Input number of nodes -> ");
+        if (OsDetector.detect() == Os.linux) {
+            System.out.print(ConsoleColors.GREEN);
+        }
+        vertices = input.nextInt();
 
-            if (OsDetector.detect() == Os.linux) {
-                System.out.print(ConsoleColors.RESET);
-            }
-            return vertices;
+        if (OsDetector.detect() == Os.linux) {
+            System.out.print(ConsoleColors.RESET);
+        }
+        return vertices;
     }
 }
