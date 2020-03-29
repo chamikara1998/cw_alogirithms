@@ -1,3 +1,5 @@
+package components;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -6,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class MaxFlowAnalyserGUI extends Application {
+public class MaxFlowAnalyserGUI extends Application implements Component {
 
     @Override
     public void start(Stage primaryStage) {
@@ -25,5 +27,10 @@ public class MaxFlowAnalyserGUI extends Application {
         root.getChildren().add(btn);
         primaryStage.setScene(new Scene(root, 300, 250));
         primaryStage.show();
+    }
+
+    @Override
+    public void render() {
+        Application.launch(MaxFlowAnalyserGUI.class);
     }
 }
