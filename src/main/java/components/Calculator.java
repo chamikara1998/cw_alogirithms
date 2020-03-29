@@ -78,6 +78,7 @@ public class Calculator implements Component {
             try {
                 String inputData = scanner.nextLine();
                 String[] dataRowStrings = inputData.split(",");
+                if(dataRowStrings.length > vertices) throw new ArrayIndexOutOfBoundsException("Invalid Input");
                 for (int r = 0; r < vertices; r++) {
                     dataStructure[i][r] = Integer.parseInt(dataRowStrings[r].trim());
                 }
