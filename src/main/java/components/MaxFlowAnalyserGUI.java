@@ -14,10 +14,18 @@ import javafx.stage.Stage;
 
 import java.util.Random;
 
+/**
+ * This class for analyse algorithmn and draw a graph
+ */
 public class MaxFlowAnalyserGUI extends Application implements Component {
 
     private XYChart.Series series;
 
+    /**
+     * This method is for UI Start
+     *
+     * @param stage ui stage
+     */
     @Override
     public void start(Stage stage) {
         stage.setTitle("Max Flow Algorithm Performance");
@@ -36,6 +44,9 @@ public class MaxFlowAnalyserGUI extends Application implements Component {
         stage.show();
     }
 
+    /**
+     * This method is for analyseAlgorithmn with random data set
+     */
     private void analyseAlgorithm() {
         int[] algorithmNodeAmounts = {6, 12, 24, 48};
 
@@ -51,6 +62,10 @@ public class MaxFlowAnalyserGUI extends Application implements Component {
         }
     }
 
+    /**
+     * This method is for draw a graph
+     * @param dataSet
+     */
     private void calculateProcessingTimeAndPublishGraph(int[][] dataSet) {
         MaximumFlowProcessor maximumFlowProcessor = new MaximumFlowProcessor();
         long startTime = System.currentTimeMillis();
@@ -59,6 +74,9 @@ public class MaxFlowAnalyserGUI extends Application implements Component {
         series.getData().add(new XYChart.Data(dataSet[0].length, (endTime - startTime)));
     }
 
+    /**
+     * This method is for render this component
+     */
     @Override
     public void render() {
         Application.launch(MaxFlowAnalyserGUI.class);

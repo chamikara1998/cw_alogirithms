@@ -5,11 +5,21 @@ import util.Os;
 import util.OsDetector;
 
 import java.util.LinkedList;
-
+/**
+ * This class is use for process maximum Flow of Diagrams
+ */
 public class MaximumFlowProcessor implements FlowProcessor {
 
-    private int vertices = 6;
+    private int vertices = 0;
 
+    /**
+     * This method is for do a breath first search
+     * @param graph data structure
+     * @param s starting node
+     * @param t end node
+     * @param parent parent array
+     * @return whether visited or not
+     */
     private boolean doBreathFirstSearch(int[][] graph, int s, int t, int[] parent) {
         boolean[] visited = new boolean[vertices];
         LinkedList<Integer> queue = new LinkedList<Integer>();
@@ -30,6 +40,13 @@ public class MaximumFlowProcessor implements FlowProcessor {
         return (visited[t]);
     }
 
+    /**
+     * This method is for calculate max flow
+     * @param graph data structure
+     * @param s starting node
+     * @param t end node
+     * @return max flow
+     */
     public int getMaxFlow(int[][] graph, int s, int t) {
         vertices = graph[0].length;
         int x, y;
@@ -62,7 +79,7 @@ public class MaximumFlowProcessor implements FlowProcessor {
         System.out.println("Maximum flow path");
         System.out.println("==================");
         if (OsDetector.detect() == Os.linux) {
-            System.out.println(ConsoleColors.BLUE_BRIGHT);
+            System.out.println(ConsoleColors.BLUE);
         }
         for (int i = 0; i < vertices; i++) {
             for (int j = 0; j < vertices; j++) {

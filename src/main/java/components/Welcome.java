@@ -2,13 +2,18 @@ package components;
 
 
 import constants.ConsoleColors;
-import sun.plugin2.util.SystemUtil;
 import util.Os;
 import util.OsDetector;
 
+/**
+ * This method is for render welcome component
+ */
 public class Welcome implements Component {
 
 
+    /**
+     * This method is for render this component
+     */
     @Override
     public void render() {
         if(OsDetector.detect() == Os.linux){

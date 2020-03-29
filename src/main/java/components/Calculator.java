@@ -2,18 +2,22 @@ package components;
 
 import algorithm.MaximumFlowProcessor;
 import constants.ConsoleColors;
-import javafx.application.Application;
-import sun.plugin2.util.SystemUtil;
 import util.Os;
 import util.OsDetector;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * This class for initiate calculate process
+ */
 public class Calculator implements Component {
 
     int[][] dataStructure;
 
+    /**
+     * This method is for start calculation
+     */
     private void calculate() {
         MaximumFlowProcessor maximumFlowProcessor = new MaximumFlowProcessor();
         int maxFlow =  maximumFlowProcessor.getMaxFlow(dataStructure, 0, 5);
@@ -28,6 +32,9 @@ public class Calculator implements Component {
         System.out.println("");
     }
 
+    /**
+     * This method is for render this component
+     */
     @Override
     public void render() {
         int vertices = 0;
@@ -48,6 +55,9 @@ public class Calculator implements Component {
         renderChoice();
     }
 
+    /**
+     * This method is for render choice
+     */
     private void renderChoice() {
         System.out.println("Do you want to Edit Data Structure ? (Yes/No)");
         Scanner scanner = new Scanner(System.in);
@@ -60,6 +70,9 @@ public class Calculator implements Component {
         renderChoice();
     }
 
+    /**
+     * This method is for render edit window
+     */
     private void renderEditWindow() {
         Scanner scanner = new Scanner(System.in);
         if (OsDetector.detect() == Os.linux) {
@@ -84,6 +97,13 @@ public class Calculator implements Component {
         calculate();
     }
 
+    /**
+     * This method for change stored data structure
+     *
+     * @param fromNode from node
+     * @param toNode to node
+     * @param edge edge value
+     */
     private void changeDataStructure(int fromNode, int toNode, int edge) {
         dataStructure[fromNode][toNode] = edge;
     }
@@ -127,6 +147,11 @@ public class Calculator implements Component {
         return dataStructure;
     }
 
+    /**
+     * This method is for get vertices
+     *
+     * @return vertices
+     */
     private int getVertices() {
         int vertices;
         Scanner input = new Scanner(System.in);

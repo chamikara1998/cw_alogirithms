@@ -1,5 +1,8 @@
 package util;
 
+/**
+ * This class for detect os
+ */
 public class OsDetector {
 
     public static Os detect(){

@@ -3,14 +3,23 @@ package components;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * This class for render menu
+ */
 public class Menu implements Component {
 
 
+    /**
+     * This method is for render this component
+     */
     @Override
     public void render() {
         renderMenu();
     }
 
+    /**
+     * Render the menu items
+     */
     public void renderMenu() {
         System.out.println("Select option ");
         System.out.println("");
