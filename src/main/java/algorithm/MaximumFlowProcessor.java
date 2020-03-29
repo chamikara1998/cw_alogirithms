@@ -34,19 +34,24 @@ public class MaximumFlowProcessor implements FlowProcessor{
     public int getMaxFlow(int[][] graph, int s, int t) {
         int x, y;
         int[] parent = new int[vertices];
+        int rGraph[][] = new int[vertices][vertices];
+
+        for (x = 0; x < vertices; x++)
+            for (y = 0; y < vertices; y++)
+                rGraph[x][y] = graph[x][y];
 
         int max_flow = 0;
-        while (doBreathFirstSearch(graph, s, t, parent)) {
+        while (doBreathFirstSearch(rGraph, s, t, parent)) {
             int path_flow = Integer.MAX_VALUE;
             for (y = t; y != s; y = parent[y]) {
                 x = parent[y];
-                path_flow = Math.min(path_flow, graph[x][y]);
+                path_flow = Math.min(path_flow, rGraph[x][y]);
             }
 
             for (y = t; y != s; y = parent[y]) {
                 x = parent[y];
-                graph[x][y] -= path_flow;
-                graph[y][x] += path_flow;
+                rGraph[x][y] -= path_flow;
+                rGraph[y][x] += path_flow;
             }
             System.out.println("Path Flow -> " + path_flow);
             max_flow += path_flow;
