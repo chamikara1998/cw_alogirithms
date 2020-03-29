@@ -75,11 +75,32 @@ public class Calculator implements Component {
         Scanner scanner = new Scanner(System.in);
         int[][] dataStructure = new int[vertices][vertices];
         for (int i = 0; i < vertices; i++) {
-            String inputData = scanner.nextLine();
-            String[] dataRowStrings = inputData.split(",");
-            for (int r = 0; r < vertices; r++) {
-                dataStructure[i][r] = Integer.parseInt(dataRowStrings[r].trim());
+            try {
+                String inputData = scanner.nextLine();
+                String[] dataRowStrings = inputData.split(",");
+                for (int r = 0; r < vertices; r++) {
+                    dataStructure[i][r] = Integer.parseInt(dataRowStrings[r].trim());
+                }
+            }catch (NumberFormatException e){
+                if(OsDetector.detect() == Os.linux){
+                    System.out.println(ConsoleColors.RED);
+                }
+                System.out.println("Invalid Input : " + e.getMessage() + ". Please enter valid data structure row.");
+                i =- 1;
+                if(OsDetector.detect() == Os.linux){
+                    System.out.println(ConsoleColors.RESET);
+                }
+            } catch (ArrayIndexOutOfBoundsException e){
+                if(OsDetector.detect() == Os.linux){
+                    System.out.println(ConsoleColors.RED);
+                }
+                System.out.println("Invalid Input : expected " + vertices + " data columns");
+                i =- 1;
+                if(OsDetector.detect() == Os.linux){
+                    System.out.println(ConsoleColors.RESET);
+                }
             }
+
         }
         return dataStructure;
     }
