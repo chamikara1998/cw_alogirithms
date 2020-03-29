@@ -6,11 +6,6 @@ public class MaximumFlowProcessor implements FlowProcessor{
 
     private int vertices = 6;
 
-
-    public MaximumFlowProcessor(int vertices) {
-        this.vertices = vertices;
-    }
-
     private boolean doBreathFirstSearch(int[][] graph, int s, int t, int[] parent) {
         boolean[] visited = new boolean[vertices];
         LinkedList<Integer> queue = new LinkedList<Integer>();
@@ -32,6 +27,7 @@ public class MaximumFlowProcessor implements FlowProcessor{
     }
 
     public int getMaxFlow(int[][] graph, int s, int t) {
+        vertices = graph[0].length;
         int x, y;
         int[] parent = new int[vertices];
         int rGraph[][] = new int[vertices][vertices];

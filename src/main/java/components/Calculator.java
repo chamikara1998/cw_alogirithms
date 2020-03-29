@@ -15,7 +15,7 @@ public class Calculator implements Component {
     int[][] dataStructure;
 
     private void calculate() {
-        MaximumFlowProcessor maximumFlowProcessor = new MaximumFlowProcessor(dataStructure[0].length);
+        MaximumFlowProcessor maximumFlowProcessor = new MaximumFlowProcessor();
 
         System.out.println("The maximum possible flow is " +
                 maximumFlowProcessor.getMaxFlow(dataStructure, 0, 5));
