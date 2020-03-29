@@ -7,6 +7,7 @@ import sun.plugin2.util.SystemUtil;
 import util.Os;
 import util.OsDetector;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Calculator implements Component {
@@ -22,7 +23,19 @@ public class Calculator implements Component {
 
     @Override
     public void render() {
-        int vertices = getVertices();
+        int vertices = 0;
+        try {
+            vertices = getVertices();
+        }catch (InputMismatchException e){
+            if(OsDetector.detect() == Os.linux) {
+                System.out.print(ConsoleColors.RED);
+                System.out.println("Invalid Node Input.");
+                System.out.print(ConsoleColors.RESET);
+            }else {
+                System.out.println("Invalid Node Input.");
+            }
+            System.exit(1);
+        }
         dataStructure = getDataStructure(vertices);
         calculate();
         renderChoice();
@@ -107,16 +120,17 @@ public class Calculator implements Component {
     }
 
     private int getVertices() {
-        int vertices;
-        Scanner input = new Scanner(System.in);
-        System.out.print("Input number of nodes -> ");
-        if (OsDetector.detect() == Os.linux) {
-            System.out.print(ConsoleColors.GREEN);
-        }
-        vertices = input.nextInt();
-        if (OsDetector.detect() == Os.linux) {
-            System.out.print(ConsoleColors.RESET);
-        }
-        return vertices;
+            int vertices;
+            Scanner input = new Scanner(System.in);
+            System.out.print("Input number of nodes -> ");
+            if (OsDetector.detect() == Os.linux) {
+                System.out.print(ConsoleColors.GREEN);
+            }
+            vertices = input.nextInt();
+
+            if (OsDetector.detect() == Os.linux) {
+                System.out.print(ConsoleColors.RESET);
+            }
+            return vertices;
     }
 }
