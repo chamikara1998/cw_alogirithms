@@ -43,13 +43,13 @@ public class Calculator implements Component {
     private void renderEditWindow() {
         Scanner scanner = new Scanner(System.in);
         if (OsDetector.detect() == Os.linux) {
-            System.out.println("Enter from node which do you want to edit.");
+            System.out.println("Enter " + ConsoleColors.YELLOW + " from node " + ConsoleColors.RESET + " which do you want to edit.");
         } else {
             System.out.println("Enter from node which do you want to edit.");
         }
         int fromNode = scanner.nextInt();
         if (OsDetector.detect() == Os.linux) {
-            System.out.println("Enter to node which do you want to edit.");
+            System.out.println("Enter " + ConsoleColors.YELLOW + " to node " + ConsoleColors.RESET + " which do you want to edit.");
         } else {
             System.out.println("Enter to node which do you want to edit.");
         }
@@ -60,11 +60,11 @@ public class Calculator implements Component {
             System.out.println("Enter to edge value.");
         }
         int edgeValue = scanner.nextInt();
-        changeDataStructure(fromNode,toNode,edgeValue);
+        changeDataStructure(fromNode, toNode, edgeValue);
         calculate();
     }
 
-    private void changeDataStructure(int fromNode,int toNode,int edge){
+    private void changeDataStructure(int fromNode, int toNode, int edge) {
         dataStructure[fromNode][toNode] = edge;
     }
 
